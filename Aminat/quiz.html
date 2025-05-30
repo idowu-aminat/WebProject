@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complete this survey</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    #quiz-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .option {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .option:hover {
+      background-color: #0056b3;
+    }
+    #next-btn {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+    #score {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div class="div row">
+        <h1>Complete this survey</h1></div><br>
+  <h3 id="question">Loading...</h3>
+  <div id="options"></div>
+  <button id="next-btn" onclick="nextQuestion()">Next</button>
+  <div id="score"></div>
+</div>
+
+<script>
+  const quizQuestions = [
+    {
+      question: "How did you know about our brand?",
+      options: ["Friends", "Social Media", "Omline search", "Advertisement"],
+    },
+    {
+      question: "Are you satisfied with our store?",
+      options: ["Yes", "No", "I'm not sure", "Neither Yes or No"],
+    },
+    {
+      question: "Will you refer us to your friends and family?",
+      options: ["Yes", "No", "I'm not sure", "Neither Yes or No"],
+    },
+    {
+      question: "Do you prioritize sustainability or eco-friendliness when choosing fabric?",
+      options: ["Yes, it is very important", "Somewhat important", "Not very important", "Not at all important"],
+    },
+    {
+      question: "How would you rate your satisfaction with our current product offerings?",
+      options: ["Very satisfied", "Somewhat satisfied", "Neutral", "Somewhat dissatisfied"],
+    }
+  ];
+
+  let currentIndex = 0;
+  let score = 0;
+
+  function displayQuestion() {
+    const questionObj = quizQuestions[currentIndex];
+    document.getElementById("question").innerText = questionObj.question;
+
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+
+    questionObj.options.forEach(option => {
+      const btn = document.createElement("button");
+      btn.innerText = option;
+      btn.classList.add("option");
+      btn.onclick = () => checkAnswer(option);
+      optionsDiv.appendChild(btn);
+    });
+
+    document.getElementById("next-btn").style.display = "none";
+  }
+
+  function checkAnswer(selected) {
+    const correct = quizQuestions[currentIndex].answer;
+    const buttons = document.querySelectorAll(".option");
+
+    buttons.forEach(btn => {
+      btn.disabled = selected;
+      if (btn.innerText === selected) {
+        btn.style.backgroundColor = "green";// Always turn selected button green
+      } 
+    });
+
+    document.getElementById("next-btn").style.display = "inline-block";
+  }
+
+  function nextQuestion() {
+    currentIndex++;
+    if (currentIndex < quizQuestions.length) {
+      displayQuestion();
+    } else {
+      document.getElementById("quiz-container").innerHTML = `
+        <h2>Survey Complete!</h2>
+      `;
+    }
+  }
+
+  window.onload = displayQuestion;
+</script>
+
+</body>
+</html>

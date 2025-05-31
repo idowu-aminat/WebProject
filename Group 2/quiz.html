@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5 Question Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    #quiz-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .option {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .option:hover {
+      background-color: #0056b3;
+    }
+    #next-btn {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+    #score {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div id="quiz-container">
+  <h2 id="question">Loading...</h2>
+  <div id="options"></div>
+  <button id="next-btn" onclick="nextQuestion()">Next</button>
+  <div id="score"></div>
+</div>
+
+<script>
+  const quizQuestions = [
+    {
+      question: "What of this is a programming language?",
+      options: ["Java", "HTML", "C++", "Front-end"],
+      answer: "HTML"
+    },
+    {
+      question: "Which language is used for web development?",
+      options: ["Python", "Java", "HTML", "C++"],
+      answer: "HTML"
+    },
+    {
+      question: "Which of these languages do we use to style an HTML document?",
+      options: ["CSS", "Java++", "C++", "Java"],
+      answer: "CSS"
+    },
+    {
+      question: "Choose the correct HTML element with the largest heading?",
+      options: ["<h1>", "<heading>", "<h4>", "<head>"],
+      answer: "<h1>"
+    },
+    {
+      question: "How can you make a numbered list?",
+      options: ["<ul>", "<dl>", "<ol>", "<list>"],
+      answer: "<ol>"
+    }
+  ];
+
+  let currentIndex = 0;
+  let score = 0;
+
+  function displayQuestion() {
+    const questionObj = quizQuestions[currentIndex];
+    document.getElementById("question").innerText = questionObj.question;
+
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+
+    questionObj.options.forEach(option => {
+      const btn = document.createElement("button");
+      btn.innerText = option;
+      btn.classList.add("option");
+      btn.onclick = () => checkAnswer(option);
+      optionsDiv.appendChild(btn);
+    });
+
+    document.getElementById("next-btn").style.display = "none";
+  }
+
+  function checkAnswer(selected) {
+    const correct = quizQuestions[currentIndex].answer;
+    const buttons = document.querySelectorAll(".option");
+
+    buttons.forEach(btn => {
+      btn.disabled = true;
+      if (btn.innerText === correct) {
+        btn.style.backgroundColor = "green";
+      } else if (btn.innerText === selected) {
+        btn.style.backgroundColor = "red";
+      }
+    });
+
+    if (selected === correct) {
+      score++;
+    }
+
+    document.getElementById("next-btn").style.display = "inline-block";
+  }
+
+  function nextQuestion() {
+    currentIndex++;
+    if (currentIndex < quizQuestions.length) {
+      displayQuestion();
+    } else {
+      document.getElementById("quiz-container").innerHTML = `
+        <h2>Quiz Complete!</h2>
+        <p id="score">Your score is ${score} out of ${quizQuestions.length}.</p>
+      `;
+    }
+  }
+
+  window.onload = displayQuestion;
+</script>
+
+</body>
+</html>

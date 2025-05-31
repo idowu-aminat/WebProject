@@ -1,0 +1,82 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Quiz Container */
+#quiz-container {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Question */
+#question {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Answer Options */
+.option {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  margin: 10px 0;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.option:hover {
+  background-color: #0056b3;
+}
+
+/* Disabled Options Styling */
+.option:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Next Button */
+#next-btn {
+  margin-top: 25px;
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: none;
+}
+
+#next-btn:hover {
+  background-color: darkgreen;
+}
+
+/* Score */
+#score {
+  font-size: 1.2rem;
+  color: #222;
+  margin-top: 20px;
+}
